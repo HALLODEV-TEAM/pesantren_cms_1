@@ -1,26 +1,152 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #047857; /* Pesantren Islamic Emerald */
+  --primary-foreground: #ffffff;
+  --secondary: #0d9488;
+  --secondary-foreground: #ffffff;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f59e0b; /* Gold accent */
+  --accent-foreground: #78350f;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #047857;
+  --radius: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Force light mode regardless of system preferences */
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Ensure cursor pointer for all buttons, links, and interactive elements */
+button,
+a,
+select,
+summary,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+.cursor-pointer {
+  cursor: pointer !important;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Typography styles for Rich Text articles */
+.prose-pesantren {
+  color: #334155;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.prose-pesantren h1,
+.prose-pesantren h2,
+.prose-pesantren h3,
+.prose-pesantren h4 {
+  color: #0f172a;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-pesantren h1 { font-size: 1.875rem; }
+.prose-pesantren h2 { font-size: 1.5rem; }
+.prose-pesantren h3 { font-size: 1.25rem; }
+
+.prose-pesantren p {
+  margin-bottom: 1.25rem;
+}
+
+.prose-pesantren ul,
+.prose-pesantren ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-pesantren ul {
+  list-style-type: disc;
+}
+
+.prose-pesantren ol {
+  list-style-type: decimal;
+}
+
+.prose-pesantren li {
+  margin-bottom: 0.35rem;
+}
+
+.prose-pesantren blockquote {
+  border-left: 4px solid #047857;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #475569;
+  margin: 1.25rem 0;
+  background: #f0fdf4;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose-pesantren img {
+  border-radius: 0.75rem;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.prose-pesantren a {
+  color: #047857;
+  text-decoration: underline;
+}
+
+/* TipTap Editor Styles */
+.tiptap {
+  min-height: 250px;
+  outline: none;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: #94a3b8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }

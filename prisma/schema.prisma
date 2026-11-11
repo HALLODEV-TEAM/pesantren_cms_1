@@ -1,0 +1,160 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Banner {
+  id          Int      @id @default(autoincrement())
+  title       String
+  subtitle    String   @db.Text
+  imageUrl    String
+  highlight1  String?
+  highlight2  String?
+  highlight3  String?
+  buttonText  String?
+  buttonLink  String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PesantrenProfile {
+  id            Int      @id @default(autoincrement())
+  name          String   @default("Pondok Pesantren Al-Ikhlas")
+  tagline       String?
+  description   String   @db.Text
+  address       String
+  district      String   @default("Harjamukti")
+  city          String   @default("Kota Cirebon")
+  province      String   @default("Jawa Barat")
+  postalCode    String?  @default("45143")
+  phone         String   @default("0231-1234567")
+  whatsapp      String   @default("6285123456987")
+  email         String   @default("info@pesantren-alikhlas.sch.id")
+  nspp          String?  @default("510032740012")
+  akreditasi    String   @default("A (Unggul)")
+  leaderName    String   @default("KH. Ahmad Syahidin, M.A.")
+  leaderTitle   String   @default("Pengasuh Pondok")
+  leaderPhoto   String
+  leaderWelcome String?  @db.Text
+  vision        String   @db.Text
+  mission       String   @db.Text
+  history       String   @db.Text
+  facebook      String?  @default("https://facebook.com")
+  instagram     String?  @default("https://instagram.com")
+  youtube       String?  @default("https://youtube.com")
+  tiktok        String?  @default("https://tiktok.com")
+  xTwitter      String?  @default("https://x.com")
+  updatedAt     DateTime @updatedAt
+}
+
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  category    String   // Berita Terbaru, Kegiatan Pondok, Wawasan, Pengumuman
+  excerpt     String   @db.Text
+  content     String   @db.LongText
+  imageUrl    String
+  author      String   @default("Admin Pesantren")
+  isPublished Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  views       Int      @default(0)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EducationProgram {
+  id          Int      @id @default(autoincrement())
+  name        String   // TK Islam, Madrasah Ibtidaiyah, Madrasah Tsanawiyah, Madrasah Aliyah, Tahfidz Al-Qur'an
+  slug        String   @unique
+  level       String
+  description String   @db.Text
+  curriculum  String   @db.Text
+  features    String   @db.Text
+  imageUrl    String
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Gallery {
+  id          Int      @id @default(autoincrement())
+  title       String
+  category    String   @default("Kegiatan") // Kegiatan, Fasilitas, Santri, Prestasi
+  imageUrl    String
+  description String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Facility {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  imageUrl    String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  avatarUrl String?
+  content   String   @db.Text
+  rating    Int      @default(5)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FAQ {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String   @db.Text
+  category  String   @default("Umum")
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Registration {
+  id                 Int      @id @default(autoincrement())
+  registrationNumber String   @unique
+  fullName           String
+  gender             String   // Laki-laki / Perempuan
+  birthPlace         String
+  birthDate          DateTime
+  programChoice      String
+  parentName         String
+  parentPhone        String
+  address            String   @db.Text
+  previousSchool     String
+  status             String   @default("Menunggu Verifikasi") // Menunggu Verifikasi, Diverifikasi, Lulus Seleksi, Ditolak
+  notes              String?  @db.Text
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+

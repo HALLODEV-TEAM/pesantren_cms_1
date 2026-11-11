@@ -1,0 +1,533 @@
+export const INITIAL_USER = {
+  id: 1,
+  username: "admin_mmtQRCyFAB2NQFt5a6gB",
+  password: "n3VqxTtpTpaw3nSqWDss", // password matching user prompt
+  name: "KH. Ahmad Syahidin, M.A.",
+  role: "admin",
+  avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&h=120&q=80",
+};
+
+export const INITIAL_PROFILE = {
+  id: 1,
+  name: "Pondok Pesantren Al-Ikhlas",
+  shortName: "AL-IKHLAS",
+  institutionType: "Pondok Pesantren",
+  logoUrl: "",
+  faviconUrl: "",
+  tagline: "Membentuk Generasi Berilmu, Beradab, dan Berakhlak Qur'ani",
+  description:
+    "Pondok Pesantren Al-Ikhlas adalah Pesantren Modern yang berfokus untuk membangun kepribadian dan akhlak mulia dengan berdasar Al-Qur'an dan Hadits. Menjunjung tinggi nilai-nilai luhur di dalam semua aspek kehidupan. Menghasilkan santri dengan kepribadian yang baik, sopan, santun, pintar, terampil, dan berprestasi, serta berpegang erat pada Ahlus Sunnah Wal Jama'ah.",
+  address: "Jl. Pesantren No. 45, Harjamukti",
+  district: "Harjamukti",
+  city: "Kota Cirebon",
+  province: "Jawa Barat",
+  postalCode: "45143",
+  phone: "0231-1234567",
+  whatsapp: "6285123456987",
+  email: "pesantren@domain.com",
+  nspp: "510032740012",
+  akreditasi: "A (Unggul)",
+  leaderName: "KH. Ahmad Syahidin, M.A.",
+  leaderTitle: "Pengasuh Pondok",
+  leaderPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+  leaderWelcome:
+    "Assalamu'alaikum Warahmatullahi Wabarakatuh. Puji syukur kita panjatkan ke hadirat Allah SWT atas segala limpahan rahmat dan karunia-Nya. Pondok Pesantren Al-Ikhlas hadir sebagai wadah pencetak generasi penerus umat yang tidak hanya menguasai khazanah keilmuan Islam klasik (kutubut turats), namun juga cakap dalam sains, teknologi informasi, dan kepemimpinan global. Kami berkomitmen menyelenggarakan pendidikan holistik yang membimbing ruhani, akal, dan fisik santri agar siap menjadi teladan di tengah masyarakat.",
+  vision:
+    "Menjadi lembaga pendidikan pesantren unggul berstandar nasional dan internasional dalam melahirkan kader ulama yang berakhlakul karimah, berwawasan luas, mandiri, dan berdaya saing global.",
+  mission:
+    "1. Menanamkan nilai-nilai keimanan, ketakwaan, dan akhlak mulia berdasarkan paham Ahlus Sunnah Wal Jama'ah.\n2. Menyelenggarakan pendidikan terpadu antara kurikulum Kementerian Agama/Kemendikbud dengan kurikulum kepesantrenan.\n3. Membimbing program tahfidzul Qur'an mutqin dengan sanad keilmuan bersambung.\n4. Mengembangkan kemandirian, kepemimpinan, dan kecakapan teknologi para santri.",
+  history:
+    "Pondok Pesantren Al-Ikhlas didirikan dengan niat tulus untuk membumikan nilai-nilai Islam rahmatan lil 'alamin. Berawal dari majelis taklim sederhana, kini pesantren telah berkembang menjadi kompleks pendidikan terpadu yang melayani ribuan santri dari berbagai pelosok Nusantara dengan fasilitas pendidikan, asrama representatif, dan masjid jami'.",
+  facebook: "https://facebook.com",
+  instagram: "https://instagram.com",
+  youtube: "https://youtube.com",
+  tiktok: "https://tiktok.com",
+  xTwitter: "https://x.com",
+};
+
+export const INITIAL_BANNERS = [
+  {
+    id: 1,
+    title: "Membentuk Generasi Berilmu dan Berakhlak",
+    subtitle:
+      "Pendidikan Islam yang memadukan ilmu, adab, dan kemandirian untuk masa depan yang lebih baik.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1584281722572-882415d86208?auto=format&fit=crop&w=1920&q=80",
+    highlight1: "Ilmu Berlandaskan Al-Qur'an",
+    highlight2: "Pembinaan Akhlak Mulia",
+    highlight3: "Kemandirian untuk Masa Depan",
+    buttonText: "Daftar Santri Baru",
+    buttonLink: "/pendaftaran",
+    order: 1,
+    isActive: true,
+  },
+  {
+    id: 2,
+    title: "Mencetak Huffazh Al-Qur'an & Ulama Mandiri",
+    subtitle:
+      "Program unggulan tahfidz 30 juz berkarakter dengan pengajar bersanad muttashil dan kurikulum terpadu.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80",
+    highlight1: "Metode Talaqqi & Sanad",
+    highlight2: "Bimbingan Tahsin Intensif",
+    highlight3: "Kurikulum Terpadu Modern",
+    buttonText: "Lihat Program Pendidikan",
+    buttonLink: "/pendidikan",
+    order: 2,
+    isActive: true,
+  },
+  {
+    id: 3,
+    title: "Pendidikan Modern Berbasis Tradisi Pesantren Salaf",
+    subtitle:
+      "Integrasi sains, teknologi, kecerdasan digital, dan kitab kuning untuk melahirkan cendekiawan muslim masa depan.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1920&q=80",
+    highlight1: "Kajian Kitab Turats Salaf",
+    highlight2: "Lab Sains & Komputer",
+    highlight3: "Bahasa Arab & Inggris Aktif",
+    buttonText: "Jelajahi Profil",
+    buttonLink: "/profil",
+    order: 3,
+    isActive: true,
+  },
+];
+
+export const INITIAL_ARTICLES = [
+  {
+    id: 1,
+    title: "Pesantren Mengajarkan Ilmu Agama dan Teknologi Terkini",
+    slug: "pesantren-mengajarkan-ilmu-agama-dan-teknologi-terkini",
+    category: "Berita Terbaru",
+    excerpt:
+      "Pesantren selama ini dikenal sebagai lembaga pendidikan yang menanamkan nilai-nilai keislaman, akhlak, dan kedisiplinan kepada para santri. Namun, di era digital yang semakin pesat ini, santri dibekali teknologi modern dan digital skill.",
+    content: `
+      <p>Pondok Pesantren Al-Ikhlas senantiasa berinovasi dalam mengintegrasikan pendidikan agama tradisional dengan kecakapan era modern. Seiring kemajuan teknologi, para santri kini tidak hanya mendalami kajian tafsir dan kitab kuning, tetapi juga dibekali literasi digital, pemrograman dasar, dan pemanfaatan perangkat lunak terkini.</p>
+      
+      <h2>Integrasi Khazanah Salaf dan Sains Kontemporer</h2>
+      <p>Program pembelajaran teknologi ini dirancang tanpa mengurangi esensi penguasaan ilmu agama. Setiap pagi dan petang, santri tetap mengikuti halaqah Al-Qur'an dan pengajian sorogan. Pada siang hari, mereka memiliki akses ke laboratorium komputer modern dengan koneksi internet terfilter.</p>
+      
+      <blockquote>"Santri masa kini harus menjadi subjek peradaban teknologi, bukan sekadar konsumen. Nilai adab dan kejujuran yang didapat di pesantren menjadi kompas moral dalam berselancar di dunia maya." — KH. Ahmad Syahidin, M.A.</blockquote>
+      
+      <h2>Prestasi Santri di Bidang Robotik & Riset Ilmiah</h2>
+      <p>Hasil dari pendekatan ini telah terbukti dengan diraihnya berbagai medali dalam ajang kompetisi sains madrasah dan olimpiade teknologi tingkat provinsi maupun nasional. Ke depan, pesantren berencana membuka inkubator kewirausahaan digital santri.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+    author: "Ustadz H. Ridwan, M.Pd.",
+    isPublished: true,
+    isFeatured: true,
+    views: 1240,
+    publishedAt: new Date("2026-11-10T08:00:00Z").toISOString(),
+  },
+  {
+    id: 2,
+    title: "Pengajian dan Tafsir kitab rutin setelah Magrib",
+    slug: "pengajian-dan-tafsir-kitab-rutin-setelah-magrib",
+    category: "Kegiatan Pondok",
+    excerpt:
+      "Pondok pesantren merupakan lembaga pendidikan Islam yang memiliki peran penting dalam menumbuhkan pemahaman agama melalui kajian kitab turats secara berkesinambungan.",
+    content: `
+      <p>Setiap ba'da shalat Magrib berjamaah, suasana syahdu menyelimuti Masjid Jami' Pondok Pesantren Al-Ikhlas. Seluruh santri putra dan putri berkumpul membentuk halaqah pengajian tafsir kitab Jalalain dan kitab fiqih Fathul Qarib yang diampu langsung oleh para asatidz senior.</p>
+      <p>Metode sorogan dan bandongan yang telah diwariskan turun-temurun tetap dipertahankan karena terbukti efektif menanamkan ketelitian sanad keilmuan dan ketajaman qira'ah.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=800&q=80",
+    author: "Redaksi Pesantren",
+    isPublished: true,
+    isFeatured: false,
+    views: 890,
+    publishedAt: new Date("2026-11-08T18:30:00Z").toISOString(),
+  },
+  {
+    id: 3,
+    title: "Keceriaan Para murid Madrasah",
+    slug: "keceriaan-para-murid-madrasah",
+    category: "Kegiatan Pondok",
+    excerpt:
+      "Madrasah adalah lembaga pendidikan yang memiliki peran penting dalam membentuk karakter dan memperluas pengetahuan para tunas bangsa sejak usia dini.",
+    content: `
+      <p>Kegiatan belajar mengajar di Madrasah Ibtidaiyah Al-Ikhlas selalu dipenuhi keceriaan. Dengan konsep pembelajaran ramah anak (fun learning), siswa diajak mengenal konsep-konsep matematika dan sains melalui permainan edukatif serta pembiasaan shalat dhuha dan hafalan surat-surat pendek.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+    author: "Tim Media MI",
+    isPublished: true,
+    isFeatured: false,
+    views: 650,
+    publishedAt: new Date("2026-11-05T09:00:00Z").toISOString(),
+  },
+  {
+    id: 4,
+    title: "Renovasi Pondok sudah hampir selesai",
+    slug: "renovasi-pondok-sudah-hampir-selesai",
+    category: "Berita Terbaru",
+    excerpt:
+      "Pondok pesantren merupakan tempat yang sangat berarti bagi para santri dalam menuntut ilmu agama. Fasilitas asrama baru kini siap dihuni santri baru tahun ajaran ini.",
+    content: `
+      <p>Alhamdulillah, pembangunan gedung asrama santri lantai 3 dan perluasan aula serbaguna kini telah mencapai progres 95%. Gedung baru ini dilengkapi dengan sistem sirkulasi udara alami, kamar mandi bersih, serta ruang belajar bersama yang ergonomis.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1548625361-195fe61a55c3?auto=format&fit=crop&w=800&q=80",
+    author: "Panitia Sarpras",
+    isPublished: true,
+    isFeatured: false,
+    views: 1120,
+    publishedAt: new Date("2026-11-03T14:15:00Z").toISOString(),
+  },
+  {
+    id: 5,
+    title: "Profil Pondok Pesantren Al-Ikhlas",
+    slug: "profil-pondok-pesantren-al-ikhlas",
+    category: "Berita Terbaru",
+    excerpt:
+      "Pondok pesantren adalah lembaga pendidikan yang memiliki peran penting dalam mempertajam pemahaman agama dan akhlak karimah generasi muda.",
+    content: `
+      <p>Mengenal lebih dekat ekosistem pendidikan di Pondok Pesantren Al-Ikhlas: dari sistem asrama 24 jam, interaksi pengasuh santri yang erat, hingga program pembinaan bahasa Arab dan Inggris setiap hari.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80",
+    author: "Humas Pesantren",
+    isPublished: true,
+    isFeatured: false,
+    views: 940,
+    publishedAt: new Date("2026-10-28T10:00:00Z").toISOString(),
+  },
+  {
+    id: 6,
+    title: "Kurikulum baru untuk Madrasah Ibtidaiyah",
+    slug: "kurikulum-baru-untuk-madrasah-ibtidaiyah",
+    category: "Wawasan",
+    excerpt:
+      "Madrasah Ibtidaiyah adalah lembaga pendidikan formal di Indonesia yang menyediakan pendidikan dasar bagi generasi penerus bangsa dengan muatan keagamaan yang kokoh.",
+    content: `
+      <p>Kurikulum terpadu di Pondok Pesantren Al-Ikhlas menyelaraskan kurikulum Merdeka Belajar dengan muatan kurikulum pesantren khas Al-Ikhlas. Pembelajaran difokuskan pada penguatan literasi numerasi sekaligus penanaman karakter adab terhadap guru dan orang tua.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80",
+    author: "Bidang Kurikulum",
+    isPublished: true,
+    isFeatured: false,
+    views: 530,
+    publishedAt: new Date("2026-10-25T11:20:00Z").toISOString(),
+  },
+  {
+    id: 7,
+    title: "Sambutan Pembina pondok dalam Acara Maulid",
+    slug: "sambutan-pembina-pondok-dalam-acara-maulid",
+    category: "Kegiatan Pondok",
+    excerpt:
+      "Maulid Nabi Muhammad SAW adalah perayaan yang penuh kegembiraan dan kebahagiaan bagi umat Muslim dalam meneladani akhlak Rasulullah.",
+    content: `
+      <p>Dalam peringatan Maulid Nabi Muhammad SAW 1448 H, Pengasuh Pondok Pesantren berpesan agar seluruh santri meneladani sifat amanah, fathonah, shiddiq, dan tabligh dalam kehidupan sehari-hari maupun pergaulan sosial.</p>
+    `,
+    imageUrl:
+      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80",
+    author: "Tim Dokumentasi",
+    isPublished: true,
+    isFeatured: false,
+    views: 820,
+    publishedAt: new Date("2026-10-20T20:00:00Z").toISOString(),
+  },
+];
+
+export const INITIAL_PROGRAMS = [
+  {
+    id: 1,
+    name: "TK Islam Terpadu",
+    slug: "tk-islam",
+    level: "Pendidikan Usia Dini",
+    description:
+      "Menumbuhkan fondasi akidah, adab, dan keceriaan belajar sejak dini dengan pendekatan ramah anak dan hafalan doa-doa harian serta surat-surat pendek Juz 30.",
+    curriculum:
+      "Kurikulum PAUD Nasional dipadu dengan pengenalan huruf Hijaiyah metode Yanbu'a, pembiasaan ibadah praktis, dan sensory play.",
+    features:
+      "Sentra Bermain Edukatif\nPembiasaan Shalat Dhuha\nPengajar Berpengalaman & Sayang Anak\nRuang Belajar Full AC & Aman",
+    imageUrl:
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80",
+    order: 1,
+    isActive: true,
+  },
+  {
+    id: 2,
+    name: "Madrasah Ibtidaiyah (MI)",
+    slug: "madrasah-ibtidaiyah",
+    level: "Pendidikan Dasar (Setingkat SD)",
+    description:
+      "Membentuk tunas bangsa yang cerdas, berkarakter, cinta Al-Qur'an, dan memiliki dasar kemampuan literasi, numerasi, serta bahasa Arab & Inggris sejak dini.",
+    curriculum:
+      "Integrasi Kurikulum Kementerian Agama RI dan kurikulum penguatan pesantren (Tahfidz minimal 5 Juz, Aqidah Akhlak, Bahasa Arab).",
+    features:
+      "Target Hafalan 5 Juz Mutqin\nProgram Billingual Praktis\nKegiatan Ekstrakurikuler Memanah & Renang\nLab Komputer Anak",
+    imageUrl:
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80",
+    order: 2,
+    isActive: true,
+  },
+  {
+    id: 3,
+    name: "Madrasah Tsanawiyah (MTs)",
+    slug: "madrasah-tsanawiyah",
+    level: "Pendidikan Menengah Pertama (Setingkat SMP)",
+    description:
+      "Pendidikan berasrama (boarding) untuk usia remaja yang menyeimbangkan disiplin ilmu syar'i, pembiasaan shalat berjamaah 5 waktu di masjid, dan sains unggulan.",
+    curriculum:
+      "Kurikulum Madrasah Kemenag RI + Kurikulum Pondok Pesantren Modern (Nahwu Shorof, Fiqih, Hadits Arba'in, Sains & Matematika bilingual).",
+    features:
+      "Asrama Penuh dengan Pembina 24 Jam\nPenguasaan Percakapan Bahasa Arab & Inggris\nOlimpiade Sains & Riset Remaja\nPramuka Santri & Seni Hadroh",
+    imageUrl:
+      "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80",
+    order: 3,
+    isActive: true,
+  },
+  {
+    id: 4,
+    name: "Madrasah Aliyah (MA)",
+    slug: "madrasah-aliyah",
+    level: "Pendidikan Menengah Atas (Setingkat SMA)",
+    description:
+      "Jenjang persiapan matang menuju perguruan tinggi ternama baik di dalam negeri (PTN/PTKIN) maupun luar negeri (Universitas Al-Azhar Mesir, Timur Tengah, Turki, dll).",
+    curriculum:
+      "Pilihan Jurusan IPA (MIPA), IPS, dan Keagamaan (PK) dengan penguatan kajian kitab turats tingkat tinggi dan bimbingan UTBK intensif.",
+    features:
+      "Program Sukses Tembus PTN & Al-Azhar\nKarya Tulis Ilmiah Santri\nOrganisasi Santri & Latihan Kepemimpinan\nKajian Kitab Fathul Mu'in & Alfiyah",
+    imageUrl:
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80",
+    order: 4,
+    isActive: true,
+  },
+  {
+    id: 5,
+    name: "Tahfidz Al-Qur'an 30 Juz",
+    slug: "tahfidz-al-quran",
+    level: "Program Unggulan Spesialisasi",
+    description:
+      "Program khusus takhassus bagi santri yang bertekad menyelesaikan hafalan 30 juz secara mutqin dengan pemahaman tajwid matang dan bimbingan talaqqi sanad.",
+    curriculum:
+      "Metode Sabaq, Sabqi, Manzil harian, ujian tasmi' bil-ghaib per 5 juz, serta sertifikasi syahadah tahfidz resmi.",
+    features:
+      "Pengampu Bersanad Qira'ah 'Ashim Riwayat Hafsh\nKarantina Tahfidz Intensif\nBeasiswa Khusus bagi Santri Berprestasi\nRuang Halaqah Nyaman & Khusyuk",
+    imageUrl:
+      "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=600&q=80",
+    order: 5,
+    isActive: true,
+  },
+];
+
+export const INITIAL_GALLERY = [
+  {
+    id: 1,
+    title: "Suasana Belajar Santri di Pelataran Masjid",
+    category: "Kegiatan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1584281722572-882415d86208?auto=format&fit=crop&w=800&q=80",
+    description: "Kegiatan tadarrus dan talaqqi Al-Qur'an santri di pelataran asri Masjid Jami'.",
+    order: 1,
+  },
+  {
+    id: 2,
+    title: "Foto Bersama Wisuda Santri dan Dewan Asatidz",
+    category: "Prestasi",
+    imageUrl:
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+    description: "Momen wisuda purna santri Madrasah Aliyah Al-Ikhlas bersama jajaran pengasuh.",
+    order: 2,
+  },
+  {
+    id: 3,
+    title: "Kajian Kitab Kuning Bersama Pengasuh",
+    category: "Kegiatan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=800&q=80",
+    description: "Penyampaian mutiara hikmah kitab fiqih dan tasawuf di hadapan santri.",
+    order: 3,
+  },
+  {
+    id: 4,
+    title: "Muroja'ah Hafalan Al-Qur'an Santri Tahfidz",
+    category: "Santri",
+    imageUrl:
+      "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=800&q=80",
+    description: "Dua santri sedang menyimak hafalan surat demi surat dengan penuh konsentrasi.",
+    order: 4,
+  },
+  {
+    id: 5,
+    title: "Kemegahan Arsitektur Masjid Pesantren",
+    category: "Fasilitas",
+    imageUrl:
+      "https://images.unsplash.com/photo-1548625361-195fe61a55c3?auto=format&fit=crop&w=800&q=80",
+    description: "Kubah emas dan menara indah masjid pesantren yang menjadi pusat spiritual santri.",
+    order: 5,
+  },
+  {
+    id: 6,
+    title: "Praktikum Laboratorium Komputer Santri",
+    category: "Fasilitas",
+    imageUrl:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+    description: "Santri mempraktekkan teknologi digital, riset artikel, dan bahasa pemrograman.",
+    order: 6,
+  },
+];
+
+export const INITIAL_TESTIMONIALS = [
+  {
+    id: 1,
+    name: "H. Bambang Sulistyo",
+    role: "Wali Santri Madrasah Tsanawiyah (Jakarta)",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&h=120&q=80",
+    content:
+      "Alhamdulillah, sejak anak saya mondok di Pesantren Al-Ikhlas, perubahan akhlaknya sangat terasa. Shalatnya tidak pernah ditinggalkan, sangat santun pada orang tua, dan hafalannya sudah mencapai 7 juz dalam 1,5 tahun.",
+    rating: 5,
+    isActive: true,
+  },
+  {
+    id: 2,
+    name: "Ustadz M. Farhan, Lc., M.A.",
+    role: "Alumni Al-Ikhlas (Kini Mahasiswa S2 Al-Azhar Kairo)",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80",
+    content:
+      "Fondasi bahasa Arab dan penguasaan kitab kuning yang diajarkan oleh asatidz di Al-Ikhlas sangat kuat. Berkat bimbingan intensif dari beliau-beliau, saya bisa lulus beasiswa dan menempuh studi di Mesir dengan lancar.",
+    rating: 5,
+    isActive: true,
+  },
+  {
+    id: 3,
+    name: "Ibu Dra. Hj. Siti Nurjanah",
+    role: "Wali Santri Madrasah Aliyah (Bandung)",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80",
+    content:
+      "Kombinasi antara ilmu agama dan sains di Al-Ikhlas luar biasa. Anak saya tidak hanya tekun beribadah, tapi juga berhasil meraih juara lomba riset madrasah dan diterima di fakultas kedokteran melalui jalur prestasi.",
+    rating: 5,
+    isActive: true,
+  },
+];
+
+export const INITIAL_FAQS = [
+  {
+    id: 1,
+    question: "Kapan periode pendaftaran santri baru (PSB) dibuka?",
+    answer:
+      "Pendaftaran Santri Baru (PSB) Pondok Pesantren Al-Ikhlas dibuka dalam 2 gelombang: Gelombang I (Oktober - Desember) dan Gelombang II (Januari - Mei) setiap tahunnya. Pendaftaran dapat dilakukan secara online melalui website ini atau langsung hadir ke sekretariat pesantren.",
+    category: "Pendaftaran",
+    order: 1,
+    isActive: true,
+  },
+  {
+    id: 2,
+    question: "Apa saja syarat kelulusan tes seleksi santri baru?",
+    answer:
+      "Materi tes seleksi meliputi: Tes Membaca Al-Qur'an (Tahsin & Tajwid), Tes Tulis Dasar Agama & Pengetahuan Umum, serta Wawancara Komitmen Calon Santri dan Wali Santri. Hasil tes diumumkan secara transparan melalui portal pendaftaran.",
+    category: "Pendaftaran",
+    order: 2,
+    isActive: true,
+  },
+  {
+    id: 3,
+    question: "Bagaimana sistem kehidupan asrama bagi santri?",
+    answer:
+      "Santri tinggal di asrama modern yang terpisah antara santri putra dan santri putri. Setiap kamar dibina oleh seorang Ustadz/Ustadzah Musyrif yang memantau ketertiban, kebersihan, shalat berjamaah, dan kegiatan belajar malam santri selama 24 jam.",
+    category: "Umum",
+    order: 3,
+    isActive: true,
+  },
+  {
+    id: 4,
+    question: "Apakah santri diperkenankan membawa gadget / HP?",
+    answer:
+      "Untuk menjaga fokus ibadah dan belajar, santri tidak diperkenankan membawa gadget pribadi ke asrama. Fasilitas komunikasi telepon santri disediakan melalui wartel pondok berkala, dan akses komputer difasilitasi di laboratorium resmi saat jam pelajaran.",
+    category: "Umum",
+    order: 4,
+    isActive: true,
+  },
+  {
+    id: 5,
+    question: "Apakah tersedia program beasiswa di Pesantren Al-Ikhlas?",
+    answer:
+      "Ya, kami menyediakan Beasiswa Santri Berprestasi dan Beasiswa Tahfidz Al-Qur'an 30 Juz bagi santri yang berprestasi dan memenuhi kualifikasi seleksi khusus.",
+    category: "Biaya & Beasiswa",
+    order: 5,
+    isActive: true,
+  },
+  {
+    id: 6,
+    question: "Kapan jadwal jenguk wali santri diperbolehkan?",
+    answer:
+      "Jadwal jenguk (sambangan) wali santri diadakan secara teratur pada hari Ahad pekan kedua dan keempat setiap bulannya, mulai pukul 08.00 hingga 16.30 WIB dengan tetap memperhatikan tata tertib kunjungan pesantren.",
+    category: "Umum",
+    order: 6,
+    isActive: true,
+  },
+];
+
+export const INITIAL_REGISTRATIONS = [
+  {
+    id: 1,
+    registrationNumber: "PSB-2026-001",
+    fullName: "Muhammad Fadhil Ramadhan",
+    gender: "Laki-laki",
+    birthPlace: "Cirebon",
+    birthDate: "2013-05-14T00:00:00Z",
+    programChoice: "Madrasah Tsanawiyah (MTs)",
+    parentName: "H. Agus Supriyadi",
+    parentPhone: "081234567890",
+    address: "Jl. Pemuda No. 18, Kota Cirebon",
+    previousSchool: "SD Islam Terpadu Cirebon",
+    status: "Diverifikasi",
+    notes: "Sudah lulus tes baca Al-Qur'an dan wawancara",
+    createdAt: new Date("2026-11-01T09:30:00Z").toISOString(),
+  },
+  {
+    id: 2,
+    registrationNumber: "PSB-2026-002",
+    fullName: "Aisyah Nur Salsabila",
+    gender: "Perempuan",
+    birthPlace: "Kuningan",
+    birthDate: "2010-09-22T00:00:00Z",
+    programChoice: "Madrasah Aliyah (MA)",
+    parentName: "Drs. H. Hendra Setiawan",
+    parentPhone: "085712348899",
+    address: "Desa Cigugur, Kab. Kuningan",
+    previousSchool: "MTs Negeri 1 Kuningan",
+    status: "Lulus Seleksi",
+    notes: "Peringkat 1 Tes Akademik & Tahfidz 3 Juz",
+    createdAt: new Date("2026-11-03T11:15:00Z").toISOString(),
+  },
+  {
+    id: 3,
+    registrationNumber: "PSB-2026-003",
+    fullName: "Raihan Abdullah Majid",
+    gender: "Laki-laki",
+    birthPlace: "Majalengka",
+    birthDate: "2012-12-05T00:00:00Z",
+    programChoice: "Madrasah Tsanawiyah (MTs)",
+    parentName: "Ahmad Baihaqi",
+    parentPhone: "082199887766",
+    address: "Kec. Jatiwangi, Kab. Majalengka",
+    previousSchool: "MI PUI Majalengka",
+    status: "Menunggu Verifikasi",
+    notes: "Dokumen berkas pendaftaran sedang ditinjau",
+    createdAt: new Date("2026-11-08T14:40:00Z").toISOString(),
+  },
+  {
+    id: 4,
+    registrationNumber: "PSB-2026-004",
+    fullName: "Khadijah Zahra An-Nisa",
+    gender: "Perempuan",
+    birthPlace: "Indramayu",
+    birthDate: "2014-03-18T00:00:00Z",
+    programChoice: "Tahfidz Al-Qur'an 30 Juz",
+    parentName: "Ust. M. Ridho",
+    parentPhone: "087788990011",
+    address: "Jatibarang, Kab. Indramayu",
+    previousSchool: "SDIT Al-Hikmah",
+    status: "Diverifikasi",
+    notes: "Memiliki hafalan awal 2 juz",
+    createdAt: new Date("2026-11-10T16:20:00Z").toISOString(),
+  },
+];
+
