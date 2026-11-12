@@ -24,12 +24,16 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useProfileQuery } from "@/hooks/useApiQueries";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 
 function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [authChecking, setAuthChecking] = useState(pathname !== "/admin/login");
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const { data: profile } = useProfileQuery();
   const shortName = profile?.shortName || "Al-Ikhlas";
@@ -48,6 +52,49 @@ function AdminShell({ children }: { children: React.ReactNode }) {
     avatarUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&h=120&q=80",
   });
+
+  // Client-side authentication verification
+  useEffect(() => {
+    if (pathname === "/admin/login") {
+      setAuthChecking(false);
+      return;
+    }
+
+    let isMounted = true;
+    fetch("/api/auth/me")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Unauthorized");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (isMounted) {
+          if (!data.authenticated) {
+            router.replace("/admin/login");
+          } else {
+            if (data.user) {
+              setAdminUser({
+                name: data.user.name || "KH. Ahmad Syahidin, M.A.",
+                role: data.user.role || "Pengasuh & Admin",
+                avatarUrl:
+                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&h=120&q=80",
+              });
+            }
+            setAuthChecking(false);
+          }
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          router.replace("/admin/login");
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname, router]);
 
   // On desktop, open sidebar by default; on mobile, keep closed
   useEffect(() => {
@@ -68,14 +115,35 @@ function AdminShell({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  const handleLogout = async () => {
+  // If still verifying auth, show a clean indicator
+  if (authChecking) {
+    return (
+      <div className="min-h-screen bg-[#f1f5f9] flex flex-col items-center justify-center gap-3 text-slate-600">
+        <div className="w-9 h-9 border-3 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+        <span className="text-sm font-semibold tracking-wide text-slate-700">
+          Memverifikasi sesi pengelola...
+        </span>
+      </div>
+    );
+  }
+
+  const handleLogoutClick = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const handleConfirmLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await fetch("/api/auth/logout", { method: "POST" });
-      toast.success("Berhasil keluar.");
+      toast.success("Berhasil keluar dari sesi pengelola.");
+      setShowLogoutConfirm(false);
       router.push("/admin/login");
       router.refresh();
     } catch {
+      setShowLogoutConfirm(false);
       router.push("/admin/login");
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -143,47 +211,170 @@ function AdminShell({ children }: { children: React.ReactNode }) {
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-teal-300/20 blur-[120px] pointer-events-none" />
       <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] rounded-full bg-blue-300/20 blur-[80px] pointer-events-none" />
 
-      {/* MOBILE BACKDROP OVERLAY */}
-      {isSidebarOpen && (
+      {/* =========================================================================
+          MOBILE DRAWER (lg:hidden) - DECOUPLED FROM DESKTOP TO PREVENT BLUR OVERLAY
+          ========================================================================= */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ${
+          isSidebarOpen ? "visible" : "invisible pointer-events-none"
+        }`}
+      >
+        {/* Backdrop overlay */}
         <div
-          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm lg:hidden z-40 transition-opacity cursor-pointer"
+          className={`fixed inset-0 bg-slate-900/60 transition-opacity duration-300 ${
+            isSidebarOpen ? "opacity-100" : "opacity-0"
+          }`}
           onClick={() => setIsSidebarOpen(false)}
           aria-hidden="true"
         />
-      )}
 
-      <div className="flex h-screen relative z-10 overflow-hidden">
-        {/* SIDEBAR DRAWER (100% RESPONSIVE, NO BLEEDING ON MOBILE) */}
-        <aside
-          className={`
-            fixed lg:static inset-y-0 left-0 z-50 flex flex-col h-full
-            w-72 max-w-[85vw] ${
-              isSidebarOpen
-                ? "translate-x-0 lg:w-64"
-                : "-translate-x-full lg:translate-x-0 lg:w-20"
-            }
-            ${
-              !isSidebarOpen
-                ? "max-lg:pointer-events-none max-lg:invisible"
-                : "max-lg:visible max-lg:pointer-events-auto"
-            }
-            transition-all duration-300 ease-in-out
-            bg-white lg:bg-white/40 lg:backdrop-blur-2xl border-r border-slate-200/80 lg:border-white/60 shadow-2xl lg:shadow-[4px_0_24px_rgba(0,0,0,0.02)]
-            overflow-x-hidden shrink-0
-          `}
+        {/* Slide-out Drawer Panel */}
+        <div
+          className={`relative z-10 flex flex-col h-full w-72 max-w-[85vw] bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         >
-          {/* Logo & Header */}
-          <div className="p-5 md:p-6 flex items-center justify-between border-b border-slate-100 lg:border-transparent">
+          {/* Drawer Header with Brand & Close Button */}
+          <div className="p-4 flex items-center justify-between border-b border-slate-100 shrink-0">
+            <Link
+              href="/admin"
+              className="flex items-center gap-2.5 cursor-pointer"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt={profile?.name || shortName}
+                  className="w-9 h-9 rounded-xl object-cover shadow-md shadow-emerald-700/20 shrink-0"
+                />
+              ) : (
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-700 to-teal-600 flex items-center justify-center shadow-md shadow-emerald-700/20 shrink-0 text-white font-bold text-sm">
+                  {initials || "AI"}
+                </div>
+              )}
+              <div className="leading-tight">
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
+                  {institutionType}
+                </span>
+                <span className="font-extrabold text-sm text-slate-900 block">
+                  {shortName}
+                </span>
+              </div>
+            </Link>
+
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
+              aria-label="Tutup Menu Dasbor"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Navigation links (Scrollable) */}
+          <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsSidebarOpen(false)}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all duration-200 cursor-pointer ${
+                  item.active
+                    ? "bg-emerald-50 text-emerald-800 font-bold border border-emerald-200"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                }`}
+              >
+                <div
+                  className={`${
+                    item.active ? "text-emerald-800" : "text-slate-500"
+                  } shrink-0`}
+                >
+                  {item.icon}
+                </div>
+                <span className="text-sm">{item.label}</span>
+                {item.active && (
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-700 shrink-0" />
+                )}
+              </Link>
+            ))}
+
+            <div className="pt-3 pb-1">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3.5">
+                Tautan Cepat
+              </p>
+            </div>
+
+            <a
+              href="/"
+              target="_blank"
+              rel="noreferrer"
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-emerald-800 transition-colors text-sm cursor-pointer"
+            >
+              <ExternalLink size={18} className="text-slate-500 shrink-0" />
+              <span>Lihat Website</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsSidebarOpen(false);
+                handleLogoutClick();
+              }}
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-rose-600 hover:bg-rose-50 transition-colors text-sm font-semibold cursor-pointer"
+            >
+              <LogOut size={18} className="text-rose-500 shrink-0" />
+              <span>Keluar Sesi</span>
+            </button>
+          </nav>
+
+          {/* Support / Helpdesk card on mobile */}
+          <div className="p-3 m-3 rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-800 text-white shadow-lg shrink-0">
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center text-amber-300 shrink-0">
+                <Headphones size={15} />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold leading-tight">Bantuan Teknis</h4>
+                <p className="text-[10px] text-emerald-200">
+                  Tim Pengembang Website
+                </p>
+              </div>
+            </div>
+            <p className="text-[11px] text-emerald-100/90 mb-2 leading-snug">
+              Butuh bantuan operasional atau penambahan fitur baru?
+            </p>
+            <a
+              href={`https://wa.me/6285123456987?text=${encodeURIComponent(
+                `Halo Tim Pengembang Website ${shortName}, saya membutuhkan bantuan teknis terkait CMS.`
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+              className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-white text-emerald-900 hover:bg-emerald-50 text-xs font-bold shadow-sm transition-all cursor-pointer"
+            >
+              <MessageCircle size={14} className="text-emerald-700" />
+              <span>Hubungi Tim Support</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          MAIN CONTAINER: DESKTOP SIDEBAR + CONTENT
+          ========================================================================= */}
+      <div className="flex h-screen relative z-10 overflow-hidden">
+        {/* DESKTOP SIDEBAR (hidden on mobile, visible on lg) */}
+        <aside
+          className={`hidden lg:flex flex-col h-full bg-white/50 backdrop-blur-2xl border-r border-white/60 shadow-[4px_0_24px_rgba(0,0,0,0.02)] transition-all duration-300 ease-in-out shrink-0 overflow-x-hidden ${
+            isSidebarOpen ? "w-64" : "w-20"
+          }`}
+        >
+          {/* Desktop Logo & Header */}
+          <div className="p-5 flex items-center justify-between border-b border-white/40">
             <Link
               href="/admin"
               className={`flex items-center gap-3 cursor-pointer ${
-                !isSidebarOpen && "lg:hidden"
+                !isSidebarOpen && "justify-center w-full"
               }`}
-              onClick={() => {
-                if (typeof window !== "undefined" && window.innerWidth < 1024) {
-                  setIsSidebarOpen(false);
-                }
-              }}
             >
               {logoUrl ? (
                 <img
@@ -196,42 +387,32 @@ function AdminShell({ children }: { children: React.ReactNode }) {
                   {initials || "AI"}
                 </div>
               )}
-              <span className="font-bold text-base leading-tight text-slate-900 whitespace-nowrap overflow-hidden">
-                {institutionType}
-                <br />
-                {shortName}
-              </span>
+              {isSidebarOpen && (
+                <span className="font-bold text-base leading-tight text-slate-900 whitespace-nowrap overflow-hidden">
+                  {institutionType}
+                  <br />
+                  {shortName}
+                </span>
+              )}
             </Link>
-
-            {/* Mobile close button */}
-            <button
-              className="lg:hidden p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors cursor-pointer"
-              onClick={() => setIsSidebarOpen(false)}
-              aria-label="Tutup Menu"
-            >
-              <X size={20} />
-            </button>
           </div>
 
           {/* Navigation links */}
-          <nav className="flex-1 px-3 md:px-4 py-3 space-y-1 overflow-y-auto">
+          <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => {
-                  if (typeof window !== "undefined" && window.innerWidth < 1024) {
-                    setIsSidebarOpen(false);
-                  }
-                }}
                 className={`
-                  w-full flex items-center gap-3 px-3.5 py-2.5 md:py-3 rounded-xl transition-all duration-200 cursor-pointer
+                  w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all duration-200 cursor-pointer
                   ${
                     item.active
-                      ? "bg-emerald-50 lg:bg-white/80 text-emerald-800 shadow-sm border border-emerald-200 lg:border-white/80 font-bold"
-                      : "text-slate-600 hover:bg-slate-100 lg:hover:bg-white/50 hover:text-slate-900"
+                      ? "bg-white/80 text-emerald-800 shadow-sm border border-white/80 font-bold"
+                      : "text-slate-600 hover:bg-white/50 hover:text-slate-900"
                   }
+                  ${!isSidebarOpen ? "justify-center px-0" : ""}
                 `}
+                title={!isSidebarOpen ? item.label : undefined}
               >
                 <div
                   className={`${
@@ -240,13 +421,11 @@ function AdminShell({ children }: { children: React.ReactNode }) {
                 >
                   {item.icon}
                 </div>
-                <span
-                  className={`text-sm whitespace-nowrap transition-opacity duration-200 ${
-                    !isSidebarOpen ? "opacity-0 lg:hidden w-0" : "opacity-100 w-auto"
-                  }`}
-                >
-                  {item.label}
-                </span>
+                {isSidebarOpen && (
+                  <span className="text-sm whitespace-nowrap">
+                    {item.label}
+                  </span>
+                )}
                 {item.active && isSidebarOpen && (
                   <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-700 shrink-0" />
                 )}
@@ -255,8 +434,8 @@ function AdminShell({ children }: { children: React.ReactNode }) {
 
             <div className="pt-4 pb-1">
               <p
-                className={`text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 md:px-4 transition-opacity ${
-                  !isSidebarOpen ? "opacity-0 lg:hidden" : "opacity-100"
+                className={`text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3.5 transition-opacity ${
+                  !isSidebarOpen ? "hidden" : "block"
                 }`}
               >
                 Tautan Cepat
@@ -267,21 +446,20 @@ function AdminShell({ children }: { children: React.ReactNode }) {
               href="/"
               target="_blank"
               rel="noreferrer"
-              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 lg:hover:bg-white/40 hover:text-emerald-800 transition-colors text-sm cursor-pointer"
+              className={`w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-slate-600 hover:bg-white/40 hover:text-emerald-800 transition-colors text-sm cursor-pointer ${
+                !isSidebarOpen ? "justify-center px-0" : ""
+              }`}
+              title={!isSidebarOpen ? "Lihat Website" : undefined}
             >
               <ExternalLink size={18} className="text-slate-500 shrink-0" />
-              <span
-                className={`whitespace-nowrap ${
-                  !isSidebarOpen ? "opacity-0 lg:hidden" : ""
-                }`}
-              >
-                Lihat Website
-              </span>
+              {isSidebarOpen && (
+                <span className="whitespace-nowrap">Lihat Website</span>
+              )}
             </a>
           </nav>
 
-          {/* DUKUNGAN & BANTUAN TEKNIS DEVELOPER (PENGGANTI STATUS SISTEM) */}
-          <div className="p-3.5 m-3 rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-800 text-white shadow-lg shadow-emerald-900/10 transition-all shrink-0">
+          {/* Desktop Support Card */}
+          <div className="p-3 m-3 rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-800 text-white shadow-lg shadow-emerald-900/10 shrink-0">
             {isSidebarOpen ? (
               <div className="flex flex-col text-left space-y-2">
                 <div className="flex items-center gap-2">
@@ -320,7 +498,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
                 target="_blank"
                 rel="noreferrer"
                 title="Hubungi Tim Support"
-                className="hidden lg:flex w-10 h-10 mx-auto rounded-xl bg-white/20 hover:bg-white text-white hover:text-emerald-900 items-center justify-center transition-all cursor-pointer"
+                className="flex w-10 h-10 mx-auto rounded-xl bg-white/20 hover:bg-white text-white hover:text-emerald-900 items-center justify-center transition-all cursor-pointer"
               >
                 <Headphones size={18} />
               </a>
@@ -382,7 +560,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
                 </div>
 
                 <button
-                  onClick={handleLogout}
+                  onClick={handleLogoutClick}
                   className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                   title="Logout"
                 >
@@ -398,6 +576,20 @@ function AdminShell({ children }: { children: React.ReactNode }) {
           </div>
         </main>
       </div>
+
+      {/* CONFIRMATION MODAL LOGOUT */}
+      <ConfirmModal
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        onConfirm={handleConfirmLogout}
+        title="Konfirmasi Keluar Sesi"
+        message="Apakah Anda yakin ingin keluar dari panel pengelola CMS? Sesi aktif Anda akan diakhiri dan Anda perlu memasukkan kredensial admin kembali untuk masuk."
+        confirmText="Ya, Keluar"
+        cancelText="Batal"
+        variant="danger"
+        isLoading={isLoggingOut}
+        icon={<LogOut size={22} />}
+      />
     </div>
   );
 }

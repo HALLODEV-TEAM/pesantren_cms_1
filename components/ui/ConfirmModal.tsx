@@ -15,6 +15,7 @@ interface ConfirmModalProps {
   cancelText?: string;
   variant?: "danger" | "warning" | "info";
   isLoading?: boolean;
+  icon?: React.ReactNode;
 }
 
 export default function ConfirmModal({
@@ -28,6 +29,7 @@ export default function ConfirmModal({
   cancelText = "Batal",
   variant = "danger",
   isLoading = false,
+  icon,
 }: ConfirmModalProps) {
   const handleClose = () => {
     if (onClose) onClose();
@@ -69,7 +71,7 @@ export default function ConfirmModal({
             {/* CLOSE BUTTON */}
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={isLoading}
               className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
             >
@@ -82,10 +84,14 @@ export default function ConfirmModal({
                 className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
                   variant === "danger"
                     ? "bg-rose-100 text-rose-600"
-                    : "bg-amber-100 text-amber-700"
+                    : variant === "warning"
+                    ? "bg-amber-100 text-amber-700"
+                    : "bg-blue-100 text-blue-700"
                 }`}
               >
-                {variant === "danger" ? (
+                {icon ? (
+                  icon
+                ) : variant === "danger" ? (
                   <Trash2 size={22} />
                 ) : (
                   <AlertTriangle size={22} />

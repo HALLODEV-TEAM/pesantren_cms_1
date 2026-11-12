@@ -42,9 +42,8 @@ export default function AdminDashboardPage() {
       {/* PAGE TITLE & ACTIONS MATCHING SCREENSHOT */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-1 flex items-center gap-2">
-            <span>Assalamu'alaikum, Admin</span>
-            <span className="text-2xl">👋</span>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-1">
+            Assalamu'alaikum, Admin
           </h1>
           <p className="text-slate-500 text-sm">
             Berikut adalah ringkasan operasional dan statistik Pondok Pesantren Al-Ikhlas hari ini.

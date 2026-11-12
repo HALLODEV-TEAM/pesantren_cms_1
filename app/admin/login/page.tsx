@@ -25,6 +25,26 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // If already authenticated, redirect to /admin immediately
+  React.useEffect(() => {
+    let isMounted = true;
+    fetch("/api/auth/me")
+      .then((res) => {
+        if (res.ok) return res.json();
+        return { authenticated: false };
+      })
+      .then((data) => {
+        if (isMounted && data.authenticated) {
+          router.replace("/admin");
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, [router]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {

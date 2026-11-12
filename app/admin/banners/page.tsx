@@ -189,7 +189,7 @@ export default function AdminBannersPage() {
             <strong>Format File:</strong> WebP, JPG, atau PNG.
           </p>
           <p className="text-emerald-700/90 text-[11px]">
-            💡 <em>Tips: Gunakan foto beresolusi tajam dengan objek utama di area tengah atau kanan agar teks judul putih di sisi kiri tetap terbaca dengan kontras maksimal.</em>
+            <strong>Tips:</strong> <em>Gunakan foto beresolusi tajam dengan objek utama di area tengah atau kanan agar teks judul putih di sisi kiri tetap terbaca dengan kontras maksimal.</em>
           </p>
         </div>
       </div>

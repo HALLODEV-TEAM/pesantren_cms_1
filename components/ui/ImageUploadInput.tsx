@@ -230,14 +230,14 @@ export default function ImageUploadInput({
       {/* GUIDELINES HELPER BADGE */}
       <div className="flex items-center justify-between text-[11px] text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/60">
         <span className="font-semibold text-emerald-800">
-          📐 Rekomendasi: {recommendedSize} (Rasio {aspectRatio})
+          Rekomendasi: {recommendedSize} (Rasio {aspectRatio})
         </span>
         <span className="text-slate-400">Maks. {maxFileSize}</span>
       </div>
 
       {tip && (
         <p className="text-[11px] text-slate-500 italic mt-0.5">
-          💡 {tip}
+          Tips: {tip}
         </p>
       )}
     </div>

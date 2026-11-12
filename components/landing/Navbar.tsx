@@ -269,179 +269,228 @@ export default function Navbar() {
 
         {/* MOBILE MENU TOGGLE */}
         <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
-          aria-label="Toggle navigation menu"
+          onClick={() => setMobileMenuOpen(true)}
+          className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+          aria-label="Buka navigasi menu"
         >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <Menu size={24} />
         </button>
       </div>
 
-      {/* MOBILE DROPDOWN DRAWER (SCROLLABLE & ACCORDION ENABLED) */}
+      {/* MOBILE FULL DRAWER (FULL HEIGHT, SCROLLABLE & ACCORDION ENABLED) */}
       {mobileMenuOpen && (
-        <div
-          className="lg:hidden fixed inset-x-0 top-[65px] md:top-[73px] bottom-0 z-50 bg-slate-900/50 backdrop-blur-sm transition-opacity"
-          onClick={() => setMobileMenuOpen(false)}
-        >
+        <div className="fixed inset-0 z-50 lg:hidden flex flex-col">
+          {/* Backdrop overlay */}
           <div
-            className="bg-white border-b border-slate-200 px-5 pt-3 pb-24 space-y-3 max-h-[85vh] overflow-y-auto overscroll-contain shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Drawer Container */}
+          <div
+            className="relative z-10 w-full max-h-screen flex flex-col bg-white shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
             onClick={(e) => e.stopPropagation()}
-            style={{ WebkitOverflowScrolling: "touch" }}
           >
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors"
-            >
-              Beranda
-            </Link>
+            {/* DRAWER HEADER WITH BRANDING & EXPLICIT CLOSE (X) BUTTON */}
+            <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2.5 cursor-pointer"
+              >
+                {logoUrl ? (
+                  <img
+                    src={logoUrl}
+                    alt={shortName}
+                    className="w-9 h-9 rounded-full object-cover shadow-sm ring-1 ring-emerald-600/30"
+                  />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-800 to-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    {shortName.slice(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <div>
+                  <span className="text-[9px] font-bold text-emerald-700 uppercase tracking-wider block leading-tight">
+                    {institutionType}
+                  </span>
+                  <span className="text-base font-black text-emerald-950 tracking-tight block leading-none">
+                    {shortName}
+                  </span>
+                </div>
+              </Link>
 
-            {/* Pesantren Accordion */}
-            <div className="border-b border-slate-100 pb-2">
+              {/* TOMBOL X (TUTUP MENU) */}
               <button
                 type="button"
-                onClick={() => setMobilePesantrenOpen((prev) => !prev)}
-                className="w-full py-2.5 text-base font-semibold text-emerald-800 flex items-center justify-between cursor-pointer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 border border-slate-200 transition-colors cursor-pointer flex items-center justify-center"
+                aria-label="Tutup Menu Navigasi"
               >
-                <span>Pesantren</span>
-                <ChevronDown
-                  size={16}
-                  className={`text-emerald-700 transition-transform duration-200 ${
-                    mobilePesantrenOpen ? "rotate-180" : ""
-                  }`}
-                />
+                <X size={20} />
               </button>
-              {mobilePesantrenOpen && (
-                <div className="pl-3 space-y-2 pt-1 text-sm text-slate-600 animate-in fade-in duration-150">
-                  <Link
-                    href="/profil"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
-                    <span>Profil Pesantren</span>
-                  </Link>
-                  <Link
-                    href="/profil#visi-misi"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <Award size={14} className="text-emerald-600 shrink-0" />
-                    <span>Visi & Misi</span>
-                  </Link>
-                  <Link
-                    href="/profil#pimpinan"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <UserCheck size={14} className="text-emerald-600 shrink-0" />
-                    <span>Pengasuh Pondok</span>
-                  </Link>
-                </div>
-              )}
             </div>
 
-            {/* Pendidikan Accordion */}
-            <div className="border-b border-slate-100 pb-2">
-              <button
-                type="button"
-                onClick={() => setMobilePendidikanOpen((prev) => !prev)}
-                className="w-full py-2.5 text-base font-semibold text-emerald-800 flex items-center justify-between cursor-pointer"
+            {/* SCROLLABLE NAV BODY */}
+            <div
+              className="flex-1 px-5 pt-3 pb-8 space-y-3 overflow-y-auto overscroll-contain max-h-[calc(100vh-65px)]"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors cursor-pointer"
               >
-                <span>Pendidikan</span>
-                <ChevronDown
-                  size={16}
-                  className={`text-emerald-700 transition-transform duration-200 ${
-                    mobilePendidikanOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {mobilePendidikanOpen && (
-                <div className="pl-3 space-y-2 pt-1 text-sm text-slate-600 animate-in fade-in duration-150">
-                  <Link
-                    href="/pendidikan/tk-islam"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <BookOpen size={14} className="text-emerald-600 shrink-0" />
-                    <span>TK Islam</span>
-                  </Link>
-                  <Link
-                    href="/pendidikan/madrasah-ibtidaiyah"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <BookOpen size={14} className="text-emerald-600 shrink-0" />
-                    <span>Madrasah Ibtidaiyah</span>
-                  </Link>
-                  <Link
-                    href="/pendidikan/madrasah-tsanawiyah"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <BookOpen size={14} className="text-emerald-600 shrink-0" />
-                    <span>Madrasah Tsanawiyah</span>
-                  </Link>
-                  <Link
-                    href="/pendidikan/madrasah-aliyah"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <BookOpen size={14} className="text-emerald-600 shrink-0" />
-                    <span>Madrasah Aliyah</span>
-                  </Link>
-                  <Link
-                    href="/pendidikan/tahfidz-al-quran"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 py-1 hover:text-emerald-700"
-                  >
-                    <BookOpen size={14} className="text-emerald-600 shrink-0" />
-                    <span>Tahfidz Al-Qur'an</span>
-                  </Link>
-                </div>
-              )}
-            </div>
+                Beranda
+              </Link>
 
-            <Link
-              href="/galeri"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors"
-            >
-              Gallery
-            </Link>
+              {/* Pesantren Accordion */}
+              <div className="border-b border-slate-100 pb-2">
+                <button
+                  type="button"
+                  onClick={() => setMobilePesantrenOpen((prev) => !prev)}
+                  className="w-full py-2.5 text-base font-semibold text-emerald-800 flex items-center justify-between cursor-pointer"
+                >
+                  <span>Pesantren</span>
+                  <ChevronDown
+                    size={16}
+                    className={`text-emerald-700 transition-transform duration-200 ${
+                      mobilePesantrenOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {mobilePesantrenOpen && (
+                  <div className="pl-3 space-y-2 pt-1 text-sm text-slate-600 animate-in fade-in duration-150">
+                    <Link
+                      href="/profil"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
+                      <span>Profil Pesantren</span>
+                    </Link>
+                    <Link
+                      href="/profil#visi-misi"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <Award size={14} className="text-emerald-600 shrink-0" />
+                      <span>Visi & Misi</span>
+                    </Link>
+                    <Link
+                      href="/profil#pimpinan"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <UserCheck size={14} className="text-emerald-600 shrink-0" />
+                      <span>Pengasuh Pondok</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
 
-            <Link
-              href="/berita"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors"
-            >
-              Berita
-            </Link>
+              {/* Pendidikan Accordion */}
+              <div className="border-b border-slate-100 pb-2">
+                <button
+                  type="button"
+                  onClick={() => setMobilePendidikanOpen((prev) => !prev)}
+                  className="w-full py-2.5 text-base font-semibold text-emerald-800 flex items-center justify-between cursor-pointer"
+                >
+                  <span>Pendidikan</span>
+                  <ChevronDown
+                    size={16}
+                    className={`text-emerald-700 transition-transform duration-200 ${
+                      mobilePendidikanOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {mobilePendidikanOpen && (
+                  <div className="pl-3 space-y-2 pt-1 text-sm text-slate-600 animate-in fade-in duration-150">
+                    <Link
+                      href="/pendidikan/tk-islam"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <BookOpen size={14} className="text-emerald-600 shrink-0" />
+                      <span>TK Islam</span>
+                    </Link>
+                    <Link
+                      href="/pendidikan/madrasah-ibtidaiyah"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <BookOpen size={14} className="text-emerald-600 shrink-0" />
+                      <span>Madrasah Ibtidaiyah</span>
+                    </Link>
+                    <Link
+                      href="/pendidikan/madrasah-tsanawiyah"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <BookOpen size={14} className="text-emerald-600 shrink-0" />
+                      <span>Madrasah Tsanawiyah</span>
+                    </Link>
+                    <Link
+                      href="/pendidikan/madrasah-aliyah"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <BookOpen size={14} className="text-emerald-600 shrink-0" />
+                      <span>Madrasah Aliyah</span>
+                    </Link>
+                    <Link
+                      href="/pendidikan/tahfidz-al-quran"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-1 hover:text-emerald-700 cursor-pointer"
+                    >
+                      <BookOpen size={14} className="text-emerald-600 shrink-0" />
+                      <span>Tahfidz Al-Qur'an</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
 
-            <Link
-              href="/pendaftaran"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors"
-            >
-              Pendaftaran
-            </Link>
+              <Link
+                href="/galeri"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors cursor-pointer"
+              >
+                Gallery
+              </Link>
 
-            <div className="pt-3 pb-6 flex flex-col gap-2.5">
+              <Link
+                href="/berita"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors cursor-pointer"
+              >
+                Berita
+              </Link>
+
               <Link
                 href="/pendaftaran"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-3 rounded-xl bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-700/20 active:scale-98 transition-all cursor-pointer"
+                className="block py-2.5 text-base font-semibold text-slate-800 border-b border-slate-100 hover:text-emerald-700 transition-colors cursor-pointer"
               >
-                Daftar Santri Baru (PSB Online)
+                Pendaftaran
               </Link>
-              <Link
-                href="/kontak"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-emerald-600/40 text-emerald-800 font-bold text-sm bg-emerald-50/70 hover:bg-emerald-100 transition-colors cursor-pointer"
-              >
-                <PhoneCall size={16} />
-                <span>Hubungi Kami</span>
-              </Link>
+
+              <div className="pt-3 pb-6 flex flex-col gap-2.5">
+                <Link
+                  href="/pendaftaran"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm shadow-md shadow-emerald-700/20 active:scale-98 transition-all cursor-pointer"
+                >
+                  Daftar Santri Baru (PSB Online)
+                </Link>
+                <Link
+                  href="/kontak"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-emerald-600/40 text-emerald-800 font-bold text-sm bg-emerald-50/70 hover:bg-emerald-100 transition-colors cursor-pointer"
+                >
+                  <PhoneCall size={16} />
+                  <span>Hubungi Kami</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
